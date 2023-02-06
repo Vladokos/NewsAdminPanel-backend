@@ -12,7 +12,11 @@ const Schema = mongoose.Schema;
 const app = express();
 const jsonParser = express.json();
 
+const middleware = require("./middleware");
+
 const mysql = require("mysql2");
+
+middleware(app);
 
 const connection = mysql.createConnection({
   host: "sql7.freesqldatabase.com",
@@ -52,8 +56,7 @@ mongoose.connect("mongodb://localhost:27017/articles", {
   useFindAndModify: false,
 });
 
-app.use(cors());
-app.use(express.static("uploads"));
+
 
 app.get("/article/", (req, res) => {
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
