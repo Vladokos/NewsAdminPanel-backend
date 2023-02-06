@@ -16,7 +16,7 @@ const middleware = require("./middleware");
 
 const mysql = require("mysql2");
 
-middleware(app);
+middleware(app, cors, express);
 
 const connection = mysql.createConnection({
   host: "sql7.freesqldatabase.com",
