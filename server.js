@@ -51,6 +51,7 @@ mongoose.connect("mongodb://localhost:27017/articles", {
   useFindAndModify: false,
 });
 
+app.use(cors());
 app.use(express.static("uploads"));
 
 app.get("/article/", (req, res) => {
