@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
+const cors = require("cors");
 
 const Schema = mongoose.Schema;
 
