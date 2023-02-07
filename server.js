@@ -16,7 +16,9 @@ const middleware = require("./middleware");
 
 const mysql = require("mysql2");
 
-middleware(app, cors, express);
+middleware(app, cors, express, path);
+
+
 
 const connection = mysql.createConnection({
   host: "sql7.freesqldatabase.com",
@@ -56,7 +58,9 @@ mongoose.connect("mongodb://localhost:27017/articles", {
   useFindAndModify: false,
 });
 
-
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.get("/article/", (req, res) => {
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
