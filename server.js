@@ -42,12 +42,9 @@ const storageConfig = multer.diskStorage({
 const upload = multer({ storage: storageConfig }).single("image");
 
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 app.get("/article/", (req, res) => {
-
+  console.log('first');
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
     return res.send(results).status(200);
   });
@@ -60,7 +57,7 @@ app.get("/article/", (req, res) => {
 
 app.get("/article/:id", (req, res) => {
   const id = req.params.id;
-
+  console.log('first');
   connection.query(
     "SELECT * FROM `ARTICLE` WHERE `id` = " + id,
     (errors, results, fields) => {
