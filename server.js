@@ -43,7 +43,7 @@ const upload = multer({ storage: storageConfig }).single("image");
 
 
 
-app.get("/article/", (req, res) => {
+app.get("/article", (req, res) => {
   console.log('first');
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
     return res.send(results).status(200);
