@@ -41,28 +41,13 @@ const storageConfig = multer.diskStorage({
 });
 const upload = multer({ storage: storageConfig }).single("image");
 
-const articleSchema = new Schema(
-  {
-    image: String,
-    title: String,
-    category: String,
-    text: String,
-  },
-  { versionKey: false }
-);
-const Article = mongoose.model("Article", articleSchema);
-// mongodb+srv://Test:<I9QRamgAooLR9oVh>@cluster1.akqdd4m.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect("mongodb://localhost:27017/articles", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useFindAndModify: false,
-});
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get("/article/", (req, res) => {
+
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
     return res.send(results).status(200);
   });
