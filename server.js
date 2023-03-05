@@ -7,8 +7,6 @@ const sharp = require("sharp");
 const path = require("path");
 const cors = require("cors");
 
-const Schema = mongoose.Schema;
-
 const app = express();
 const jsonParser = express.json();
 
@@ -18,19 +16,14 @@ const mysql = require("mysql2");
 
 middleware(app, cors, express, path);
 
-
-
 const connection = mysql.createConnection({
-  host: "sql7.freesqldatabase.com",
+  host: "sql8.freesqldatabase.com",
   port: 3306,
-  user: "sql7594939",
-  password: "2StPUsnlSE",
-  database: "sql7594939",
+  user: "sql8603073",
+  password: "5Xrs7gWjSt",
+  database: "sql8603073",
 });
 
-// app.use(express.static(path.join(__dirname + "/public")));
-// rewrite to SQL
-// 'cause MongoDB is not working in Russia
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "");
@@ -41,37 +34,24 @@ const storageConfig = multer.diskStorage({
 });
 const upload = multer({ storage: storageConfig }).single("image");
 
-
-
-app.get("/article", (req, res) => {
-  console.log('first');
+app.post("/article", (req, res) => {
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
     return res.send(results).status(200);
   });
-
-  // Article.find({}, (err, articles) => {
-  //   if (err) throw err;
-  //   return res.send(articles);
-  // });
 });
 
-app.get("/article/:id", (req, res) => {
+app.post("/article/:id", (req, res) => {
   const id = req.params.id;
-  console.log('first');
+
   connection.query(
     "SELECT * FROM `ARTICLE` WHERE `id` = " + id,
     (errors, results, fields) => {
       return res.send(results).status(200);
     }
   );
-
-  // Article.findOne({ _id: id }, (err, article) => {
-  //   if (err) throw err;
-  //   return res.send(article);
-  // });
 });
 
-app.post("/article", jsonParser, (req, res) => {
+app.post("/articleAdd", jsonParser, (req, res) => {
   if (!req.body) res.sendStatus(400);
 
   const category = req.body.category;
@@ -82,18 +62,9 @@ app.post("/article", jsonParser, (req, res) => {
     "INSERT INTO `ARTICLE` (`category`,`title`,`text`) VALUES(" +
       `'${category}','${title}','${text}')`,
     (errors, results, fields) => {
-      // console.log(errors);
-      // console.log(results.insertId);
       return res.json({ id: results.insertId }).status(200);
     }
   );
-
-  // const article = new Article({ category: category, title: title, text: text });
-
-  // article.save((err, doc) => {
-  //   if (err) throw err;
-  //   return res.json(doc).status(200);
-  // });
 });
 
 app.put("/image", upload, (req, res) => {
@@ -127,15 +98,6 @@ app.put("/image", upload, (req, res) => {
       return res.sendStatus(200);
     }
   );
-  // const article = {
-  //   id: id,
-  //   image: image,
-  // };
-
-  // Article.findByIdAndUpdate({ _id: id }, article, { new: true }, (err, doc) => {
-  //   if (err) throw err;
-  //   return res.json(doc).status(200);
-  // });
 });
 
 app.put("/article", jsonParser, (req, res) => {
@@ -153,18 +115,6 @@ app.put("/article", jsonParser, (req, res) => {
       return res.sendStatus(200);
     }
   );
-
-  // const article = {
-  //   id: id,
-  //   category: category,
-  //   title: title,
-  //   text: text,
-  // };
-
-  // Article.findOneAndUpdate({ _id: id }, article, { new: true }, (err, doc) => {
-  //   if (err) throw err;
-  //   return res.json(doc).status(200);
-  // });
 });
 
 app.delete("/article/:id", jsonParser, (req, res) => {
@@ -179,15 +129,11 @@ app.delete("/article/:id", jsonParser, (req, res) => {
   });
 
   connection.query(
-    `DELETE FROM ARTICLE WHERE id = ${id}`, (errors, results, fields) =>{
+    `DELETE FROM ARTICLE WHERE id = ${id}`,
+    (errors, results, fields) => {
       return res.sendStatus(200);
     }
-  )
-
-  // Article.findByIdAndDelete({ _id: id }, (err, doc) => {
-  //   if (err) throw err;
-  //   return res.sendStatus(200);
-  // });
+  );
 });
 
 app.listen(5000, () => {
