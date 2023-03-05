@@ -1,8 +1,9 @@
 module.exports = function (app, cors, express, path) {
   app.use(cors());
   app.use(express.static("uploads"));
-  // app.use(express.static(path.join(__dirname, 'build')));
-  app.get('/article/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });  
+  app.use(express.static(path.join(__dirname, "build")));
+
+  app.get("*", function (req, res, next) {
+    return res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
 };
