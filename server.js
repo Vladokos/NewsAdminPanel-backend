@@ -14,7 +14,13 @@ const middleware = require("./middleware");
 
 const mysql = require("mysql2");
 
-middleware(app, cors, express, path);
+app.use(cors());
+app.use(express.static("uploads"));
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("*", function (req, res, next) {
+  return res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 const connection = mysql.createConnection({
   host: "b2k0ayali9qvdf264uoc-mysql.services.clever-cloud.com",
