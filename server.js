@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 const jsonParser = express.json();
 
-const middleware = require("./middleware");
+// const middleware = require("./middleware");
 
 const mysql = require("mysql2");
 
@@ -18,15 +18,7 @@ app.use(cors());
 app.use(express.static("uploads"));
 app.use(express.static(path.join(__dirname, "build")));
 
-app.get("*", function (req, res, next) {
-  console.log('first')
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
-app.get("/", function (req, res, next) {
-  console.log('second')
-  return res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 const connection = mysql.createConnection({
   host: "b2k0ayali9qvdf264uoc-mysql.services.clever-cloud.com",
@@ -45,6 +37,21 @@ const storageConfig = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storageConfig }).single("image");
+
+app.get("*", function (req, res, next) {
+  console.log('first')
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.get("/", function (req, res, next) {
+  console.log('second')
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.get("/*", function (req, res, next) {
+  console.log('second')
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 app.post("/article", (req, res) => {
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
