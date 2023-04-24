@@ -54,6 +54,7 @@ app.get("/*", function (req, res, next) {
 });
 
 app.post("/article", (req, res) => {
+  console.log('test')
   connection.query("SELECT * FROM `ARTICLE`", (errors, results, fields) => {
     return res.send(results).status(200);
   });
