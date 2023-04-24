@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.static("uploads"));
 app.use(express.static(path.join(__dirname, "build")));
 
-router.get("*", req, (res) => {
+router.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
