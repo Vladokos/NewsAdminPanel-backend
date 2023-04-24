@@ -26,7 +26,7 @@ router.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use("*",router);
+app.use("/*",router);
 
 const connection = mysql.createConnection({
   host: "b2k0ayali9qvdf264uoc-mysql.services.clever-cloud.com",
