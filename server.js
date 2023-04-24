@@ -57,7 +57,7 @@ app.post("/article", (req, res) => {
   });
 });
 
-app.get("/api/article/:id", (req, res) => {
+app.post("/article/:id", (req, res) => {
   const id = req.params.id;
 
   connection.query(
