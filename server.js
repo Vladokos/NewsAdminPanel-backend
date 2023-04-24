@@ -22,11 +22,17 @@ app.use(cors());
 app.use(express.static("uploads"));
 app.use(express.static(path.join(__dirname, "build")));
 
-router.get("/*", (req, res) => {
+app.post("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use("/*",router);
+
+// router.get("/*", (req, res) => {
+//   console.log('test')
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
+
+// app.use("/*",router);
 
 const connection = mysql.createConnection({
   host: "b2k0ayali9qvdf264uoc-mysql.services.clever-cloud.com",
