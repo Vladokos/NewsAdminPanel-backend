@@ -14,22 +14,22 @@ const middleware = require("./middleware");
 
 const mysql = require("mysql2");
 
-// middleware(app, cors, express, path);
+middleware(app, cors, express, path);
 
 const router = express.Router();
 
 
 
 
-app.use(cors());
-app.use(express.static("uploads"));
-app.use(express.static(path.join(__dirname, "build")));
+// app.use(cors());
+// app.use(express.static("uploads"));
+// app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", (req, res, next) => {
-  console.log('test')
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-  res.end();
-});
+// app.get("/*", (req, res, next) => {
+//   console.log('test')
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+//   res.end();
+// });
 
 
 
