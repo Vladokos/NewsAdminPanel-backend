@@ -25,13 +25,13 @@ app.use(cors());
 app.use(express.static("uploads"));
 app.use(express.static(path.join(__dirname, "build")));
 
-router.post("/*", (req, res, next) => {
+app.get("/*", (req, res, next) => {
   console.log('test')
   res.sendFile(path.join(__dirname, "build", "index.html"));
   res.end();
 });
 
-app.use("/*",router);
+
 
 const connection = mysql.createConnection({
   host: "b2k0ayali9qvdf264uoc-mysql.services.clever-cloud.com",
@@ -57,7 +57,7 @@ app.post("/article", (req, res) => {
   });
 });
 
-app.post("/article/:id", (req, res) => {
+app.get("/api/article/:id", (req, res) => {
   const id = req.params.id;
 
   connection.query(
